@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rpc_package;
+
+// 定义服务
+service HelloWorldService {
+    // 定义接口和类型
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// 定义请求数据类型
+message HelloRequest {
+    string name = 1;
+}
+
+// 定义返回数据类型
+message HelloReply {
+    string message = 1;
+}
