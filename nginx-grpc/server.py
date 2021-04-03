@@ -6,15 +6,17 @@ from concurrent import futures
 
 import grpc
 
-from helloworld_pb2_grpc import add_HelloWorldServiceServicer_to_server, HelloWorldServiceServicer
-from helloworld_pb2 import HelloRequest, HelloReply
+from pb.helloworld_pb2_grpc import add_HelloWorldServiceServicer_to_server, HelloWorldServiceServicer
+from pb.helloworld_pb2 import HelloRequest, HelloReply
+from response.hello import reply
 
 
 class Hello(HelloWorldServiceServicer):
 
     # 这里实现我们定义的接口
     def SayHello(self, request, context):
-        return HelloReply(message='Hello, %s!' % request.name)
+        res = reply(request)
+        return HelloReply(message=res.get('message'))
 
 
 def serve():
@@ -25,7 +27,7 @@ def serve():
     add_HelloWorldServiceServicer_to_server(Hello(), server)
 
     # 这里使用的非安全接口，世界gRPC支持TLS/SSL安全连接，以及各种鉴权机制
-    server.add_insecure_port('[::]:50000')
+    server.add_insecure_port('[::]:50051')
     server.start()
     try:
         while True:

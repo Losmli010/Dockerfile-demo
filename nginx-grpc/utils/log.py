@@ -37,7 +37,3 @@ class Logger(object):
 def get_logger(name):
     logger = Logger(name, filename='helloworld.log', level=logging.INFO).logger
     return logger
-
-logger = get_logger(__name__)
-logger.info('test')
-logger.error('error')

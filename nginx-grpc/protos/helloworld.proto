@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package rpc_package;
+package helloworld;
 
 // 定义服务
 service HelloWorldService {

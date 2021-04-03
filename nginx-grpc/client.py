@@ -4,14 +4,15 @@ from __future__ import print_function
 import logging
 
 import grpc
+from google.protobuf.json_format import MessageToJson
 
-from helloworld_pb2 import HelloRequest, HelloReply
-from helloworld_pb2_grpc import HelloWorldServiceStub
+from pb.helloworld_pb2 import HelloRequest, HelloReply
+from pb.helloworld_pb2_grpc import HelloWorldServiceStub
 
 
 def run():
     # 使用with语法保证channel自动close
-    with grpc.insecure_channel('localhost:50001') as channel:
+    with grpc.insecure_channel('localhost:50051') as channel:
         # 客户端通过stub来实现rpc通信
         stub = HelloWorldServiceStub(channel)
 

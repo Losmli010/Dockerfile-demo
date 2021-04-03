@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import helloworld_pb2 as helloworld__pb2
+from pb import helloworld_pb2 as helloworld__pb2
 
 
 class HelloWorldServiceStub(object):
