@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  web:
+    image: nginx:1.16-alpine
+    container_name: ngx
+    volumes:
+      - ./nginx/nginx-uwsgi.conf:/tmp/nginx.conf
+    command: sh -c "envsubst < /tmp/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    networks:
+      - flk-ngx
+    ports:
+      - 8888:80
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.uwsgi
+    container_name: flk
+    networks:
+      - flk-ngx
+    expose:
+      - 8008
+networks:
+  flk-ngx:
+    driver: bridge
