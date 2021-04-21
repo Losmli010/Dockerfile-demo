@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  logstash:
+    image: logstash:7.8.0
+    container_name: log-test
+    environment:
+      discovery.seed_hosts: logstash
+      LS_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - ./logstash-test.config:/usr/share/logstash/pipeline/logstash-test.config
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    command: logstash -f /usr/share/logstash/pipeline/logstash-test.config

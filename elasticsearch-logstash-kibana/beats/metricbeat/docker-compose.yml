@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  beat:
+    build:
+      context: .
+    user: root
+    restart: always
+    volumes:
+      - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
